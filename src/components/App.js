@@ -17,19 +17,19 @@ function App() {
     setEditAvatarPopupOpen(!isEditAvatarPopupOpen);
    }
 
-   function handleEditProfileClick() {
-     setEditProfilePopupOpen(!isEditProfilePopupOpen);
+  function handleEditProfileClick() {
+    setEditProfilePopupOpen(!isEditProfilePopupOpen);
    }
 
-   function handleAddPlaceClick() {
-     setAddPlacePopupOpen(!isAddPlacePopupOpen);
+  function handleAddPlaceClick() {
+    setAddPlacePopupOpen(!isAddPlacePopupOpen);
    }
 
-   function handleCardClick(card) {
+  function handleCardClick(card) {
     setSelectedCard(card);
    }
 
-   function closeAllPopups(){
+  function closeAllPopups(){
     setEditAvatarPopupOpen(false);
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
@@ -96,8 +96,11 @@ function App() {
         </label>
       </PopupWithForm>
 
-      <PopupWithForm name="confirm" title="Вы уверены?" submitText="Да">
-      </PopupWithForm>
+      <PopupWithForm 
+        name="confirm" 
+        title="Вы уверены?" 
+        submitText="Да"
+      />
     
       <ImagePopup 
         card={selectedCard}
@@ -105,21 +108,6 @@ function App() {
       />
     
       <Footer />
-
-      <template id="card-template">
-        <article className="card">
-          <img src="#" alt="" className="card__image" />
-          <button className="card__delete" type="button"></button>
-          <div className="card__heading">
-            <h2 className="card__title"></h2>
-            <div className="card__like-container">
-              <button className="card__like" type="button"></button>
-              <p className="card__like-count"></p>
-            </div>
-          </div>
-        </article>
-      </template>
-
 
     </body>
 
