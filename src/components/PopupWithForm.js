@@ -1,13 +1,16 @@
-function PopupWithForm(props) { //title, name
+function PopupWithForm(props) { 
+  
   return (
 
-    <section className={`popup popup_type_${props.name}`} >
+    <section className={`popup popup_type_${props.name} ${props.isOpen &&  'popup_opened'}`} >
 
     <form action="post" name="popup__container" className="popup__form" novalidate>
-      <button type="button" className="popup__close"></button>
+      <button type="button" className="popup__close" onClick={props.onClose}></button>
       <h2 className="popup__title">{props.title}</h2>
       
       {props.children}
+
+      <button className="popup__button">{props.submitText}</button>
 
     </form>
   </section>
