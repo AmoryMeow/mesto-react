@@ -21,6 +21,7 @@ function Main(props) {
         setCards(initialCards);
         
       })
+      .catch((err) => console.log(err));
   },[])
 
   return (
@@ -44,6 +45,7 @@ function Main(props) {
       {
         cards.map((card, i) => (
           <Card 
+            key={card._id}
             card={card}
             onCardClick={props.onCardClick}
           />

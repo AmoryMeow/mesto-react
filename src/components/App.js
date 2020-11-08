@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import '../App.css';
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
@@ -11,29 +11,30 @@ function App() {
   const [isEditProfilePopupOpen,setEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen,setAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen,setEditAvatarPopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState('');
+  const [selectedCard, setSelectedCard] = React.useState({name: '', link: '', isOpenCard: false});
 
   function handleEditAvatarClick() {
-    setEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+    setEditAvatarPopupOpen(true);
    }
 
   function handleEditProfileClick() {
-    setEditProfilePopupOpen(!isEditProfilePopupOpen);
+    setEditProfilePopupOpen(true);
    }
 
   function handleAddPlaceClick() {
-    setAddPlacePopupOpen(!isAddPlacePopupOpen);
+    setAddPlacePopupOpen(true);
    }
 
   function handleCardClick(card) {
-    setSelectedCard(card);
+    setSelectedCard({...card, isOpenCard: true});
    }
+    
 
   function closeAllPopups(){
     setEditAvatarPopupOpen(false);
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
-    setSelectedCard('');
+    setSelectedCard({name: '', link: '', isOpenCard: false});
    }
 
   return (
@@ -57,11 +58,11 @@ function App() {
         onClose={closeAllPopups}
       >
         <label className="popup__field">
-          <input className="popup__input popup__input_type_name" id="name-input" type="text" name="name" required minlength="2" maxlength="40" />
+          <input className="popup__input popup__input_type_name" id="name-input" type="text" name="name" required minLength="2" maxLength="40" />
           <span className="popup__error" id="name-input-error"></span>
         </label>
         <label className="popup__field">
-          <input className="popup__input popup__input_type_about" id="about-input" type="text" name="about" required minlength="2" maxlength="200" />
+          <input className="popup__input popup__input_type_about" id="about-input" type="text" name="about" required minlength="2" maxLength="200" />
           <span className="popup__error" id="about-input-error"></span>
         </label>
       </PopupWithForm>
@@ -74,7 +75,7 @@ function App() {
         onClose={closeAllPopups}
       >
         <label className="popup__field">
-          <input className="popup__input popup__input_type_place" id="place-input" type="text" name="place" placeholder="Название" required minlength="1" minlength="30" />
+          <input className="popup__input popup__input_type_place" id="place-input" type="text" name="place" placeholder="Название" required minLength="1" minLength="30" />
           <span className="popup__error" id="place-input-error"></span>
         </label>
         <label className="popup__field">
@@ -91,7 +92,7 @@ function App() {
         onClose={closeAllPopups}
       >
         <label className="popup__field">
-          <input className="popup__input popup__input_type_place" id="place-input" type="url" name="avatar" placeholder="Ссылка" required minlength="1" minlength="30" />
+          <input className="popup__input popup__input_type_place" id="place-input" type="url" name="avatar" placeholder="Ссылка" required minLength="1" minLength="30" />
           <span className="popup__error" id="place-input-error"></span>
         </label>
       </PopupWithForm>
