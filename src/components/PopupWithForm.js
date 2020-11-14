@@ -4,7 +4,7 @@ function PopupWithForm(props) {
 
     <section className={`popup popup_type_${props.name} ${props.isOpen &&  'popup_opened'}`} >
 
-    <form action="post" name="popup__container" className="popup__form" noValidate>
+    <form action="post" name="popup__container" className="popup__form" noValidate onSubmit={props.onSubmit}>
       <button type="button" className="popup__close" onClick={props.onClose}></button>
       <h2 className="popup__title">{props.title}</h2>
       

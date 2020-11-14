@@ -13,11 +13,22 @@ function EditProfilePopup(props) {
     setDescription(currentUser.about);
   }, [currentUser]); 
 
-  function handleOnChange(e) {
-  console.log("handleOnChange -> e", e)
-    
-    setName(e.target.value);
+  function handleOnChange(evt) {
+  
+    if (evt.target.name === 'name') {
+      setName(evt.target.value);
+    } else if (evt.target.name === 'about') {
+      setDescription(evt.target.value);
+    } 
   }
+
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    props.onUpdateUser({
+      name: name,
+      about: description,
+    });
+  } 
 
   return (
     <PopupWithForm 
@@ -26,6 +37,7 @@ function EditProfilePopup(props) {
       submitText="Сохранить" 
       isOpen={props.isOpen}
       onClose={props.onClose}
+      onSubmit={handleSubmit}
     >
       <label className="popup__field">
         <input className="popup__input popup__input_type_name" id="name-input" 
@@ -37,7 +49,7 @@ function EditProfilePopup(props) {
       <label className="popup__field">
         <input className="popup__input popup__input_type_about" id="about-input" 
           type="text" name="about" required minLength="2" maxLength="200" 
-          value={description}
+          value={description} onChange={handleOnChange}
         />
         <span className="popup__error" id="about-input-error"></span>
       </label>

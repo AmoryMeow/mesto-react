@@ -5,9 +5,6 @@ import {CurrentUserContext} from '../contexts/CurrentUserContext.js';
 
 function Main(props) {
 
-  // const [userName,setUserName] = React.useState('');
-  // const [userDescription,setUserDescription] = React.useState('');  
-  // const [userAvatar, setUserAvatar] = React.useState('');
   const [cards, setCards] = React.useState([]);
  
   const currentUser = React.useContext(CurrentUserContext);
@@ -17,10 +14,6 @@ function Main(props) {
       .then((allData) => {
         const [profile, initialCards] = allData;
         
-        // setUserName(profile.name);
-        // setUserDescription(profile.about);
-        // setUserAvatar(profile.avatar);
-
         setCards(initialCards);
         
       })

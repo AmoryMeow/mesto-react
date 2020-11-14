@@ -8,6 +8,7 @@ import Footer from './Footer.js';
 import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
 import EditProfilePopup from './EditProfilePopup.js';
+import EditAvatarPopup from './EditAvatarPopup.js';
 
 function App() {
 
@@ -50,7 +51,28 @@ function App() {
       .catch((err) => console.log(err));
   },[])
 
+  function handleUpdateUser(data) {
+    api.saveProfile(data)
+      .then((profile) => {
+        setCurrentUser(profile);
+      })
+      .finally(() => {
+        //popupUserInfo.waitServer(false);
+        closeAllPopups();
+      });
+  }
   
+  function handleUpdateAvatar(data){
+    api.changePhoto(data)
+      .then((profile) => {
+        setCurrentUser(profile);
+    })
+    .finally(() => {
+      //popupUserAvatar.waitServer(false);
+      closeAllPopups();
+    });
+  }
+
   return (
 
     <CurrentUserContext.Provider value={currentUser}>
@@ -68,6 +90,13 @@ function App() {
       <EditProfilePopup
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
+        onUpdateUser={handleUpdateUser}
+      />
+
+      <EditAvatarPopup 
+        isOpen={isEditAvatarPopupOpen} 
+        onClose={closeAllPopups} 
+        onUpdateAvatar={handleUpdateAvatar}
       />
 
       <PopupWithForm 
@@ -84,19 +113,6 @@ function App() {
         <label className="popup__field">
           <input className="popup__input popup__input_type_link" id="link-input" type="url" name="link" placeholder="Ссылка на картинку" required />
           <span className="popup__error" id="link-input-error"></span>
-        </label>
-      </PopupWithForm>
-
-      <PopupWithForm 
-        name="avatar" 
-        title="Обновить аватар" 
-        submitText="Сохранить" 
-        isOpen={isEditAvatarPopupOpen}
-        onClose={closeAllPopups}
-      >
-        <label className="popup__field">
-          <input className="popup__input popup__input_type_place" id="place-input" type="url" name="avatar" placeholder="Ссылка" required minLength="1" maxLength="30" />
-          <span className="popup__error" id="place-input-error"></span>
         </label>
       </PopupWithForm>
 

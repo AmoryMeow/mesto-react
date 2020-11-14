@@ -85,9 +85,6 @@ export class Api {
     }
   }
 
-  //likeCard(item) {}
-  //deleteLikeCard(item) {}
-
   /** загрузка начальных данных в одном блоке */
   getAllData() {
     return Promise.all([this.getProfile(), this.getInitialCards()]);
