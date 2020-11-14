@@ -1,12 +1,17 @@
 import React from 'react';
 import '../App.css';
+import api from '../utils/Api.js';
+import {CurrentUserContext} from '../contexts/CurrentUserContext.js';
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
 import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
+import EditProfilePopup from './EditProfilePopup.js';
 
 function App() {
+
+  const [currentUser, setCurrentUser] = React.useState({});
 
   const [isEditProfilePopupOpen,setEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen,setAddPlacePopupOpen] = React.useState(false);
@@ -29,7 +34,6 @@ function App() {
     setSelectedCard({...card, isOpenCard: true});
    }
     
-
   function closeAllPopups(){
     setEditAvatarPopupOpen(false);
     setEditProfilePopupOpen(false);
@@ -37,8 +41,19 @@ function App() {
     setSelectedCard({name: '', link: '', isOpenCard: false});
    }
 
+  //получение данных пользователя
+  React.useEffect(()=> {
+    api.getProfile()
+      .then((res) => {
+        setCurrentUser(res)
+      })
+      .catch((err) => console.log(err));
+  },[])
+
+  
   return (
 
+    <CurrentUserContext.Provider value={currentUser}>
     <body className="page">
  
       <Header />
@@ -50,22 +65,10 @@ function App() {
         onCardClick={handleCardClick}
       />
 
-      <PopupWithForm 
-        name="user" 
-        title="Редактировать профиль" 
-        submitText="Сохранить" 
+      <EditProfilePopup
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
-      >
-        <label className="popup__field">
-          <input className="popup__input popup__input_type_name" id="name-input" type="text" name="name" required minLength="2" maxLength="40" />
-          <span className="popup__error" id="name-input-error"></span>
-        </label>
-        <label className="popup__field">
-          <input className="popup__input popup__input_type_about" id="about-input" type="text" name="about" required minlength="2" maxLength="200" />
-          <span className="popup__error" id="about-input-error"></span>
-        </label>
-      </PopupWithForm>
+      />
 
       <PopupWithForm 
         name="card" 
@@ -111,7 +114,7 @@ function App() {
       <Footer />
 
     </body>
-
+    </CurrentUserContext.Provider>
   );
 }
 

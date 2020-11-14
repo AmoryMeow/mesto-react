@@ -71,19 +71,22 @@ export class Api {
       }))
   }
 
-  likeCard(item) {
-    return this._getResponseData(fetch(`${this._baseUrl}/cards/likes/${item._id}`, {
+  changeLikeCardStatus(item, like) {
+    if (like) {
+      return this._getResponseData(fetch(`${this._baseUrl}/cards/likes/${item._id}`, {
         method: 'PUT',
         headers: this._headers
       }))
-  }
-
-  deleteLikeCard(item) {
-    return this._getResponseData(fetch(`${this._baseUrl}/cards/likes/${item._id}`, {
+    } else {
+      return this._getResponseData(fetch(`${this._baseUrl}/cards/likes/${item._id}`, {
         method: 'DELETE',
         headers: this._headers
       }))
+    }
   }
+
+  //likeCard(item) {}
+  //deleteLikeCard(item) {}
 
   /** загрузка начальных данных в одном блоке */
   getAllData() {
