@@ -21,6 +21,8 @@ function App() {
   const [isEditAvatarPopupOpen,setEditAvatarPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({name: '', link: '', isOpenCard: false});
 
+  const [submitTextSave, setSubmitTextSave]= React.useState('Сохранить');
+
   function handleEditAvatarClick() {
     setEditAvatarPopupOpen(true);
    }
@@ -44,6 +46,7 @@ function App() {
     setSelectedCard({name: '', link: '', isOpenCard: false});
    }
 
+  //получение начальных данных
   React.useEffect(() => {
     api.getAllData()
       .then((allData) => {
@@ -58,24 +61,26 @@ function App() {
   
   //данные пользователя
   function handleUpdateUser(data) {
+    setSubmitTextSave("Сохранение...");
     api.saveProfile(data)
       .then((profile) => {
         setCurrentUser(profile);
       })
       .finally(() => {
-        //popupUserInfo.waitServer(false);
         closeAllPopups();
+        setSubmitTextSave("Сохранить");
       });
   }
   
   function handleUpdateAvatar(data){
+    setSubmitTextSave("Сохранение...");
     api.changePhoto(data)
       .then((profile) => {
         setCurrentUser(profile);
     })
     .finally(() => {
-      //popupUserAvatar.waitServer(false);
       closeAllPopups();
+      setSubmitTextSave("Сохранить");
     });
   }
 
@@ -104,15 +109,16 @@ function App() {
       })
   }
 
+  /* добавление карточки */
   function handleAddPlaceSubmit(card){
-    
+    setSubmitTextSave("Сохранение...");
     api.addCard(card)
       .then((data) => {
         setCards([data, ...cards]);
       })
       .finally(() => {
-        //popupAddCard.waitServer(false);
         closeAllPopups();
+        setSubmitTextSave("Сохранить");
       });
   }
 
@@ -137,18 +143,21 @@ function App() {
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
         onUpdateUser={handleUpdateUser}
+        submitText={submitTextSave}
       />
 
       <EditAvatarPopup 
         isOpen={isEditAvatarPopupOpen} 
         onClose={closeAllPopups} 
         onUpdateAvatar={handleUpdateAvatar}
+        submitText={submitTextSave}
       />
 
       <AddPlacePopup 
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
         onAddPlace={handleAddPlaceSubmit}
+        submitText={submitTextSave}
       />
 
       <PopupWithForm 

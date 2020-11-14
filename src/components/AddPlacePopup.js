@@ -20,7 +20,7 @@ function AddPlacePopup(props) {
     <PopupWithForm 
         name="card" 
         title="Новое место" 
-        submitText="Сохранить" 
+        submitText={props.submitText} 
         isOpen={props.isOpen}
         onClose={props.onClose}
         onSubmit={handleSubmit}
