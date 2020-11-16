@@ -4,6 +4,8 @@ import {CurrentUserContext} from '../contexts/CurrentUserContext.js';
 
 function EditProfilePopup(props) {
 
+  const {onClose, isOpen, submitText, onUpdateUser} = props;
+
   const [name, setName] = React.useState('');
   const [description, setDescription] = React.useState('');
 
@@ -13,18 +15,17 @@ function EditProfilePopup(props) {
     setDescription(currentUser.about);
   }, [currentUser]); 
 
-  function handleOnChange(evt) {
-  
-    if (evt.target.name === 'name') {
-      setName(evt.target.value);
-    } else if (evt.target.name === 'about') {
-      setDescription(evt.target.value);
-    } 
+  function handleOnChangeName(evt) {  
+    setName(evt.target.value);
+  }
+
+  function handleOnChangeDescription(evt) {
+    setDescription(evt.target.value);
   }
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    props.onUpdateUser({
+    onUpdateUser({
       name: name,
       about: description,
     });
@@ -34,22 +35,22 @@ function EditProfilePopup(props) {
     <PopupWithForm 
       name="user" 
       title="Редактировать профиль" 
-      submitText={props.submitText} 
-      isOpen={props.isOpen}
-      onClose={props.onClose}
+      submitText={submitText} 
+      isOpen={isOpen}
+      onClose={onClose}
       onSubmit={handleSubmit}
     >
       <label className="popup__field">
         <input className="popup__input popup__input_type_name" id="name-input" 
           type="text" name="name" required minLength="2" maxLength="40" 
-          value={name} onChange={handleOnChange}
+          value={name} onChange={handleOnChangeName}
         />
         <span className="popup__error" id="name-input-error"></span>
       </label>
       <label className="popup__field">
         <input className="popup__input popup__input_type_about" id="about-input" 
           type="text" name="about" required minLength="2" maxLength="200" 
-          value={description} onChange={handleOnChange}
+          value={description} onChange={handleOnChangeDescription}
         />
         <span className="popup__error" id="about-input-error"></span>
       </label>

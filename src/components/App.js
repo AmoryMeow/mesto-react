@@ -65,9 +65,9 @@ function App() {
     api.saveProfile(data)
       .then((profile) => {
         setCurrentUser(profile);
+        closeAllPopups();
       })
       .finally(() => {
-        closeAllPopups();
         setSubmitTextSave("Сохранить");
       });
   }
@@ -77,9 +77,9 @@ function App() {
     api.changePhoto(data)
       .then((profile) => {
         setCurrentUser(profile);
+        closeAllPopups();
     })
     .finally(() => {
-      closeAllPopups();
       setSubmitTextSave("Сохранить");
     });
   }
@@ -115,9 +115,9 @@ function App() {
     api.addCard(card)
       .then((data) => {
         setCards([data, ...cards]);
+        closeAllPopups();
       })
       .finally(() => {
-        closeAllPopups();
         setSubmitTextSave("Сохранить");
       });
   }

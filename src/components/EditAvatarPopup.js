@@ -4,6 +4,8 @@ import {CurrentUserContext} from '../contexts/CurrentUserContext.js';
 
 function EditAvatarPopup(props) {
 
+  const {isOpen, onClose, submitText, onUpdateAvatar} = props;
+
   const avatarRef = React.useRef();
 
   const currentUser = React.useContext(CurrentUserContext);
@@ -14,7 +16,7 @@ function EditAvatarPopup(props) {
   function handleSubmit(evt) {
     evt.preventDefault();
   
-    props.onUpdateAvatar({
+    onUpdateAvatar({
       avatar: avatarRef.current.value,
     });
   } 
@@ -23,9 +25,9 @@ function EditAvatarPopup(props) {
     <PopupWithForm 
       name="avatar" 
       title="Обновить аватар" 
-      submitText={props.submitText} 
-      isOpen={props.isOpen}
-      onClose={props.onClose}
+      submitText={submitText} 
+      isOpen={isOpen}
+      onClose={onClose}
       onSubmit={handleSubmit}
     >
       <label className="popup__field">
